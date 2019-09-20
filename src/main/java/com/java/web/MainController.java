@@ -15,18 +15,25 @@ public class MainController {
 	SqlSession sql;
 	
 	@RequestMapping("/")
-	public String home(Model model) {
+	public String root(Model model) {
 		List<MainBean> list = sql.selectList("noticeboard.select");
 		model.addAttribute("list", list);
 		return "main";
 	}
 	
-	@RequestMapping("/{key}")
-	public String crud(@PathVariable("key") String key, MainBean mb, Model model) {
+	 @RequestMapping("/write") 
+	 public String write() {
+		 return "write"; 
+	 }
+	 
+	
+	@RequestMapping("/write/{key}")
+	public String crud(@PathVariable("key") String key, MainBean mb) {
 		
+		System.out.println(mb.toString());
 		switch (key) {
 		case "insert":
-					
+			sql.insert("noticeboard.insert", mb);
 			break;
 		case "update":
 			
@@ -38,9 +45,14 @@ public class MainController {
 		default:
 			break;
 		}
-		
-		
-		
+
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/viewDetail/{key}")
+	public String viewDetail(@PathVariable("key") String key) {
+		
+		
+		return "viewDetail";
 	}
 }

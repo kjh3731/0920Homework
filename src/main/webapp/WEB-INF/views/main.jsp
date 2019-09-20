@@ -6,26 +6,22 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<style>
-		html, body {margin: 0; padding: 0;}
-		.container {width: 90%; margin: 0 auto;}
-		
-		table, tr, th, td {border: 1px solid #CCCCCC;}
-		table {width: 100%;border-collapse: collapse;}
-		
-		.margin {margin: 20px 0;}
-	</style>
+	<link rel="stylesheet" href="/resources/css/index.css">
+	<script type="text/javascript">
+			
+	</script>
 </head>
 <body>
 	<div class="container">
 		<div class="margin">
-			<a href="/login"><img src="/resources/img/account_login.png"></a>
+			<a href="/login" class="float-l"><img src="/resources/img/account_login.png"></a>
+			<a href="/write"><button class="writeBtn">글쓰기</button></a>
 		</div>
 		<table>
 			<thead>
 				<tr>
 					<th>번호</th>
-					<th>제목</th>
+					<th class="title">제목</th>
 					<th>작성자</th>
 					<th>작성날짜</th>
 				</tr>
@@ -40,7 +36,7 @@
 			%>
 				<tr>
 					<td><%=list.get(i).getNo() %></td>	
-					<td><%=list.get(i).getTitle() %></td>
+					<td><a href="/viewDetail/<%= list.get(i).getNo()%>"><%=list.get(i).getTitle() %></a></td>
 					<td><%=list.get(i).getWriter() %></td>
 					<td><%=list.get(i).getDate() %></td>
 				</tr>

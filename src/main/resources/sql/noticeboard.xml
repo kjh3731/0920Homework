@@ -6,4 +6,13 @@
 	<select id="select" resultType="com.java.web.MainBean">
     	select `NO`,`TITLE`,`WRITER`, DATE_FORMAT(`DATE`,'%Y.%m.%d') AS `DATE` from notice where `DELYN` = 'N'
   	</select>
+  	<insert id="insert" parameterType="com.java.web.MainBean">
+  		insert into notice (`TITLE`,`CONTENTS`) values (#{title}, #{contents})
+  	</insert>
+  	<update id="update" parameterType="com.java.web.MainBean">
+  	
+  	</update>
+  	<update id="delete" parameterType="com.java.web.MainBean">
+  	
+  	</update>
 </mapper>

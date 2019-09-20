@@ -1,0 +1,18 @@
+@charset "UTF-8";
+html, body {margin: 0; padding: 0;}
+.container {width: 90%; margin: 0 auto;}
+
+table, tr, th, td {border: 1px solid #CCCCCC;}
+table {width: 100%;border-collapse: collapse;}
+button {border: none; border-radius: 6px;}
+
+.margin {margin: 20px 0;}
+
+.title {width: 40%;}
+
+.writeBtn {padding: 15.5px 20px; margin: 0 5px;}
+.width100 {width: 100%;}
+.float-l {float: left;}
+
+.titleBox {padding: 20px 10px; width: calc(100% - 20px);}
+.contentsBox {padding: 20px 10px; width: calc(100% - 18px); height: 300px;}

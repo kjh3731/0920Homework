@@ -26,7 +26,7 @@ public class LoginController {
 			try {
 				String url = "https://kauth.kakao.com/oauth/authorize";
 				url += "?client_id=5e45e7bcbf5c5c786829735f9be1f6ac&redirect_uri=";
-				url += URLEncoder.encode("http://localhost:8080/KakaoLogin", "UTF-8");
+				url += URLEncoder.encode("http://gdj16.gudi.kr:20008/KakaoLogin", "UTF-8");
 				url += "&response_type=code";
 				System.out.println("/login : " + url);
 				res.sendRedirect(url);
@@ -46,7 +46,7 @@ public class LoginController {
 			System.out.println("code : " + code);
 			String url = "https://kauth.kakao.com/oauth/token";
 			url += "?client_id=5e45e7bcbf5c5c786829735f9be1f6ac&redirect_uri=";
-			url += URLEncoder.encode("http://localhost:8080/KakaoLogin", "UTF-8");
+			url += URLEncoder.encode("http://gdj16.gudi.kr:20008/KakaoLogin", "UTF-8");
 			url += "&code=" + code;
 			url += "&grant_type=authorization_code";
 			System.out.println("/kakaoLogin : " + url);
