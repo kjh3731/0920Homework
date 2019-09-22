@@ -8,10 +8,16 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.session.ResultHandler;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,13 +26,16 @@ import net.sf.json.JSONObject;
 @Controller
 public class LoginController {
 	
+	@Autowired
+	SqlSession sql;
+	
 	@RequestMapping("/login")
 	public void login(HttpServletRequest req, HttpServletResponse res) {
 	
 			try {
 				String url = "https://kauth.kakao.com/oauth/authorize";
 				url += "?client_id=5e45e7bcbf5c5c786829735f9be1f6ac&redirect_uri=";
-				url += URLEncoder.encode("http://gdj16.gudi.kr:20008/KakaoLogin", "UTF-8");
+				url += URLEncoder.encode("http://localhost:8080/KakaoLogin", "UTF-8");
 				url += "&response_type=code";
 				System.out.println("/login : " + url);
 				res.sendRedirect(url);
@@ -36,7 +45,6 @@ public class LoginController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		
 	}
 	
 	@RequestMapping("/KakaoLogin")
@@ -46,7 +54,7 @@ public class LoginController {
 			System.out.println("code : " + code);
 			String url = "https://kauth.kakao.com/oauth/token";
 			url += "?client_id=5e45e7bcbf5c5c786829735f9be1f6ac&redirect_uri=";
-			url += URLEncoder.encode("http://gdj16.gudi.kr:20008/KakaoLogin", "UTF-8");
+			url += URLEncoder.encode("http://localhost:8080/KakaoLogin", "UTF-8");
 			url += "&code=" + code;
 			url += "&grant_type=authorization_code";
 			System.out.println("/kakaoLogin : " + url);
@@ -91,7 +99,35 @@ public class LoginController {
 						result += line;
 					}
 					System.out.println("userUrl result : " + result);
+					JSONObject jsonUser = JSONObject.fromObject(result);
+					
+					String id = jsonUser.get("id").toString();
+					JSONObject properties = (JSONObject) jsonUser.get("properties");
+					
+					String nickname = properties.getString("nickname");
+					String profile_image = properties.getString("profile_image");
+					String thumbnail_image = properties.getString("thumbnail_image");
+					
+					HashMap<String, Object> resultMap = new HashMap<String, Object>();
+					resultMap.put("id", id);
+					resultMap.put("nickname", nickname);
+					resultMap.put("profile_image", profile_image);
+					resultMap.put("thumbnail_image", thumbnail_image);
+//					System.out.println("resultMap : " + resultMap.toString());
+					
+//					HttpSession session = req.getSession();
+//					session.setAttribute("id", id);
+//					String sessionId = session.getAttribute("id").toString();
+//					System.out.println("sessionId : " + sessionId);
+					
+//					String checkId = sql.select("user.select", (String) resultMap.get(id));
+					System.out.println(id);
+//					System.out.println(checkId);
+//					if(id != checkId) {
+//						sql.insert("user.insert", resultMap);
+//					}
 				}
+				
 				input.close();
 			}
 			res.sendRedirect("/");

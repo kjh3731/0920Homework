@@ -9,7 +9,7 @@
 <body>
 	<div class="container">
 		<h1>글쓰기</h1>
-		<form action="/write/insert">
+		<form action="/write/insert" method="post">
 			<div>
 				<input type="text" name="title" placeholder="제목"  class="titleBox">
 				<textarea name="contents" placeholder="내용"  class="contentsBox"></textarea>

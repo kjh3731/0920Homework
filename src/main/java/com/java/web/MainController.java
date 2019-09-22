@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class MainController {
@@ -25,9 +26,8 @@ public class MainController {
 	 public String write() {
 		 return "write"; 
 	 }
-	 
 	
-	@RequestMapping("/write/{key}")
+	@RequestMapping(value = "/write/{key}", method=RequestMethod.POST)
 	public String crud(@PathVariable("key") String key, MainBean mb) {
 		
 		System.out.println(mb.toString());

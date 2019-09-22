@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="noticeboard">
+<mapper namespace="user">
 	<!-- #{} ''이 붙음, ${} '' 생략됨 그래서 문자열에 쓰려면 '${}' 이렇게 써야함-->
-	<select id="select" resultType="com.java.web.MainBean">
-    	select `NO`,`TITLE`,`WRITER`, DATE_FORMAT(`DATE`,'%Y.%m.%d') AS `DATE` from notice where `DELYN` = 'N'
+	<select id="select" parameterType="String" resultType="String">
+    	select `id` from `user` where `id` = #{id}
   	</select>
-  	<insert id="insert" parameterType="com.java.web.MainBean">
-  		insert into notice (`TITLE`,`CONTENTS`) values (#{title}, #{contents})
+  	<insert id="insert" parameterType="Hashmap">
+  		insert into `user` (`id`, `nickname`, `profile_image`, `thumbnail_image`) values (#{id}, #{nickname}, #{profile_image}, #{thumbnail_image})
   	</insert>
   	<update id="update" parameterType="com.java.web.MainBean">
   	
